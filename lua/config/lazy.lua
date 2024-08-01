@@ -19,10 +19,6 @@ vim.keymap.set("n", "<leader>ml", "<cmd>Lazy<cr>")
 
 require("lazy").setup("core.plugins", {
   -- defaults = { lazy = true },
-  install = {
-    -- install missing plugins on startup. This doesn't increase startup time.
-    missing = false,
-  },
   change_detection = {
     -- automatically check for config file changes and reload the ui
     enabled = false,
