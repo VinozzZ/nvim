@@ -3,7 +3,7 @@ local user_config = vim.g.config.plugins.trouble or {}
 local default_config = {
   enabled = false,
   opts = {
-    auto_preview = true,
+    auto_preview = false,
     modes = {
       preview_diagnostics = {
         mode = "diagnostics",
@@ -16,19 +16,31 @@ local default_config = {
       },
     },
   },
-  groups = {
-    ["<leader>x"] = { name = "Trouble" },
-  },
   keys = {
+    { "<leader>x", "", desc = "Trouble" },
+    {
+      "<leader>qq",
+      "<cmd>Trouble qflist toggle<cr>",
+      desc = "Toggle",
+    },
     {
       "<leader>xl",
       "<cmd>Trouble loclist toggle<cr>",
       desc = "Location List (Trouble)",
     },
     {
-      "<leader>xq",
-      "<cmd>Trouble qflist toggle<cr>",
-      desc = "Quickfix List (Trouble)",
+      "<leader>qj",
+      function()
+        require("trouble").next({ skip_groups = true, jump = true })
+      end,
+      desc = "Next",
+    },
+    {
+      "<leader>qk",
+      function()
+        require("trouble").prev({ skip_groups = true, jump = true })
+      end,
+      desc = "Prev",
     },
   },
 }
@@ -42,13 +54,5 @@ return {
     enabled = config.enabled,
     opts = config.opts,
     keys = config.keys,
-  },
-  -- which key integration
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      groups = config.groups,
-    },
   },
 }

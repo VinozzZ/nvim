@@ -2,10 +2,8 @@ local user_config = vim.g.config.plugins.gp or {}
 
 local default_config = {
   enabled = false,
-  groups = {
-    ["<leader>i"] = { name = "AI" },
-  },
   keys = {
+    { "<leader>i", "", desc = "+AI" },
     { "<leader>iv", "<cmd>GpChatNew vsplit<cr>", desc = "New Chat (vsplit)" },
     { "<leader>it", "<cmd>GpChatToggle<cr>", desc = "Toggle last chat" },
     { "<leader>if", "<cmd>GpChatFinder<cr>", desc = "Find chat" },
@@ -17,9 +15,8 @@ local default_config = {
   opts = {
     hooks = {
       Translator = function(gp, params)
-        local agent = gp.get_command_agent()
-        local chat_system_prompt = "You are a Translator, please translate between German and English."
-        gp.cmd.ChatNew(params, agent.model, chat_system_prompt)
+        local chat_system_prompt = "You are a Translator, please translate between German and Engish."
+        gp.cmd.ChatNew(params, chat_system_prompt)
       end,
     },
   },
@@ -63,13 +60,5 @@ return {
     config = function(_, opts)
       config.config_function(opts)
     end,
-  },
-  -- which key integration
-  {
-    "folke/which-key.nvim",
-    optional = true,
-    opts = {
-      groups = config.groups,
-    },
   },
 }
